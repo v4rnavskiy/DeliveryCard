@@ -1,5 +1,6 @@
 package ru.netology.deliverycard;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,8 @@ public class DeliveryCardTest {
         $("[name='phone']").setValue("+79999999999");
         $("[class='checkbox__text']").click();
         $("[class='button__text']").click();
-        $("[data-test-id='notification']").should(appear, Duration.ofMillis(15000));
-
+        $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + inputDate), Duration.ofSeconds(15))
+                .shouldBe(Condition.visible);
     }
 }
